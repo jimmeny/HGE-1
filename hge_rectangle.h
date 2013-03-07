@@ -13,10 +13,10 @@ typedef struct hgeRectangle
 	hgeVector3f vertices[4];
 } hgeRectangle;
 
-void    hgeRectangle_Init(hgeRectangle *r, hgeVector3f tl, hgeVector3f br);
-void    hgeRectangle_Destroy(hgeRectangle *r);
+void    hgeRectangle_Init(hgeRectangle *this, hgeVector3f tl, hgeVector3f br);
+void    hgeRectangle_Destroy(hgeRectangle *this);
 
-hgeBool	hgeRectangle_IntersectsBounding(hgeRectangle *r, hgeBounding *other);
-hgeBool	hgeRectangle_ContainsPoint(hgeRectangle *r, hgeVector3f *point);
+hgeBool	hgeRectangle_IntersectsBounding(hgeRectangle *this, hgeBounding *other);
+hgeBool	hgeRectangle_ContainsPoint(hgeRectangle *this, hgeVector3f *point);
 
 #endif//HGE_RECTANGLE_H

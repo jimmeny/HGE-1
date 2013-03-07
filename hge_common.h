@@ -8,8 +8,9 @@ typedef enum hgeBool {
 	hgeTrue = 1,
 } hgeBool;
 
-/* OBJECT */
-
+/* OBJECT
+ * Allows for tracking of game objects with unique ids
+ */
 typedef unsigned long int hgeObjectID;
 
 typedef struct hgeObject
@@ -17,6 +18,6 @@ typedef struct hgeObject
 	hgeObjectID uid;
 } hgeObject;
 
-void hgeObject_Init(hgeObject *o);
+void hgeObject_Init(hgeObject *this);
 
 #endif//HGE_COMMON_H

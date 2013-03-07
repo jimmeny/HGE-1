@@ -5,6 +5,9 @@
 
 #include "hge_types.h"
 
+/* ENGINE
+ * Engine base struct, manages the fixed timestep
+ */
 typedef struct hgeEngine {
 	hgeBool is_active;
 	struct {
@@ -15,22 +18,26 @@ typedef struct hgeEngine {
 	} timestep;
 } hgeEngine;
 
-void	hgeEngine_Init(hgeEngine *e, float dt, float ft);
-hgeBool	hgeEngine_IsActive(hgeEngine *e);
-void	hgeEngine_Quit(hgeEngine *e);
-int		hgeEngine_Tick(hgeEngine *e);
+void	hgeEngine_Init(hgeEngine *this, float dt, float ft);
+hgeBool	hgeEngine_IsActive(hgeEngine *this);
+void	hgeEngine_Quit(hgeEngine *this);
+int		hgeEngine_Tick(hgeEngine *this);
 
-/* ENGINE SERVER */
+/* ENGINE SERVER
+ * manages game logic, accepts inputs from EngineClient
+ */
 typedef struct hgeEngineServer {
 	union {
 		hgeEngine engine;
 	} base;
 } hgeEngineServer;
 
-void	hgeEngineServer_Init(hgeEngineServer *es, float dt, float ft);
-void	hgeEngineServer_UpdateState(hgeEngineServer *es);
+void	hgeEngineServer_Init(hgeEngineServer *this, float dt, float ft);
+void	hgeEngineServer_UpdateState(hgeEngineServer *this);
 
-/* ENGINE CLIENT */
+/* ENGINE CLIENT
+ * manages input & rendering, sends input to EngineServer
+ */
 typedef struct hgeEngineClient {
 	union {
 		hgeEngine engine;

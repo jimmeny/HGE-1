@@ -8,52 +8,52 @@
 
 /* HGE ENGINE */
 
-void hgeEngine_Init(hgeEngine *e, float dt, float ft) {
-	e->timestep.total_ticks = 0;
-	e->timestep.frame_ticks = 0;
-	e->timestep.accumulator = 0;
+void hgeEngine_Init(hgeEngine *this, float dt, float ft) {
+	this->timestep.total_ticks = 0;
+	this->timestep.frame_ticks = 0;
+	this->timestep.accumulator = 0;
 
-	memcpy((void *)&(e->timestep.delta_time), &(dt), sizeof(float));
-	memcpy((void *)&(e->timestep.max_frame_time), &(ft), sizeof(float));
+	memcpy((void *)&(this->timestep.delta_time), &(dt), sizeof(float));
+	memcpy((void *)&(this->timestep.max_frame_time), &(ft), sizeof(float));
 
-	e->is_active = hgeTrue;
+	this->is_active = hgeTrue;
 }
 
-hgeBool hgeEngine_IsActive(hgeEngine *e) {
-	return e->is_active;
+hgeBool hgeEngine_IsActive(hgeEngine *this) {
+	return this->is_active;
 }
 
-void hgeEngine_Quit(hgeEngine *e) {
-	e->is_active = hgeFalse;
+void hgeEngine_Quit(hgeEngine *this) {
+	this->is_active = hgeFalse;
 }
 
-int hgeEngine_Tick(hgeEngine *e) {
-	if(e->timestep.frame_ticks > 0) {
-		return --(e->timestep.frame_ticks);
+int hgeEngine_Tick(hgeEngine *this) {
+	if(this->timestep.frame_ticks > 0) {
+		return --(this->timestep.frame_ticks);
 	}
 
 	clock_t new_time = clock();
-	double frame_time = (new_time - e->timestep.curr_time);
-	if(new_time < e->timestep.curr_time) {
-		frame_time = (((clock_t)(0) - e->timestep.curr_time) + new_time);
+	double frame_time = (new_time - this->timestep.curr_time);
+	if(new_time < this->timestep.curr_time) {
+		frame_time = (((clock_t)(0) - this->timestep.curr_time) + new_time);
 	}
-	if(frame_time > e->timestep.max_frame_time) {
-		frame_time = e->timestep.max_frame_time;
+	if(frame_time > this->timestep.max_frame_time) {
+		frame_time = this->timestep.max_frame_time;
 	}
-	e->timestep.curr_time = new_time;
+	this->timestep.curr_time = new_time;
 
-	e->timestep.accumulator += frame_time;
-	e->timestep.frame_ticks = (e->timestep.accumulator / e->timestep.delta_time);
-	e->timestep.total_ticks = e->timestep.frame_ticks;
-	e->timestep.accumulator -= (e->timestep.frame_ticks * e->timestep.delta_time);
+	this->timestep.accumulator += frame_time;
+	this->timestep.frame_ticks = (this->timestep.accumulator / this->timestep.delta_time);
+	this->timestep.total_ticks = this->timestep.frame_ticks;
+	this->timestep.accumulator -= (this->timestep.frame_ticks * this->timestep.delta_time);
 
-	return e->timestep.frame_ticks;
+	return this->timestep.frame_ticks;
 }
 
 /* HGE ENGINE SERVER */
 
-void hgeEngineServer_Init(hgeEngineServer *es, float dt, float ft) {
-	hgeEngine_Init(&(es->base.engine), dt, ft);
+void hgeEngineServer_Init(hgeEngineServer *this, float dt, float ft) {
+	hgeEngine_Init(&(this->base.engine), dt, ft);
 }
 
 /* HGE ENGINE CLIENT */
