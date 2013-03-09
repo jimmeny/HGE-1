@@ -13,10 +13,10 @@ typedef struct hgeBounding
 	hgeVector3f *vertices;
 } hgeBounding;
 
-void	hgeBounding_Init(hgeBounding *this, hgeVector3f *va, unsigned int vc);
-void	hgeBounding_Destroy(hgeBounding *this);
+void	hgeBounding_Init(hgeBounding *self, hgeVector3f *va, unsigned int vc);
+void	hgeBounding_Destroy(hgeBounding *self);
 
-hgeBool	hgeBounding_IntersectsBounding(hgeBounding *this, hgeBounding *other);
-hgeBool	hgeBounding_ContainsPoint(hgeBounding *this, hgeVector3f *point);
+hgeBool	hgeBounding_IntersectsBounding(hgeBounding *self, hgeBounding *other);
+hgeBool	hgeBounding_ContainsPoint(hgeBounding *self, hgeVector3f *point);
 
 #endif//HGE_BOUNDING_H

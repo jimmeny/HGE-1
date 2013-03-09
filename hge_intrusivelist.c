@@ -1,38 +1,38 @@
 #include "hge_intrusivelist.h"
 
-void hgeIntrusiveListNode_Link(hgeIntrusiveListNode *this, hgeIntrusiveListNode *prev, hgeIntrusiveListNode *next) {
-	this->prev = prev;
-	this->next = next;
+void hgeIntrusiveListNode_Link(hgeIntrusiveListNode *self, hgeIntrusiveListNode *prev, hgeIntrusiveListNode *next) {
+	self->prev = prev;
+	self->next = next;
 	if(prev != NULL) {
-		prev->next = this;
+		prev->next = self;
 	}
 	if(next != NULL) {
-		next->prev = this;
+		next->prev = self;
 	}
 }
  
-void hgeIntrusiveListNode_Unlink(hgeIntrusiveListNode *this) {
-	if(this != NULL) {
-		this->next->prev = this->prev;
-		this->prev->next = this->next;
-		this->prev = this->next = NULL;
+void hgeIntrusiveListNode_Unlink(hgeIntrusiveListNode *self) {
+	if(self != NULL) {
+		self->next->prev = self->prev;
+		self->prev->next = self->next;
+		self->prev = self->next = NULL;
 	}
 }
 
-void hgeIntrusiveList_AddHead(hgeIntrusiveList *this, hgeIntrusiveListNode *node) {
-	if(this->head != NULL) {
-		hgeIntrusiveListNode_Link(node, this->head->prev, this->head);
+void hgeIntrusiveList_AddHead(hgeIntrusiveList *self, hgeIntrusiveListNode *node) {
+	if(self->head != NULL) {
+		hgeIntrusiveListNode_Link(node, self->head->prev, self->head);
 	} else {
 		hgeIntrusiveListNode_Link(node, node, node);
 	}
-	this->head = node;
+	self->head = node;
 }
  
-void hgeIntrusiveList_AddTail(hgeIntrusiveList *this, hgeIntrusiveListNode *node) {
-	if(this->head != NULL) {
-		hgeIntrusiveListNode_Link(node, this->head->prev, this->head);
+void hgeIntrusiveList_AddTail(hgeIntrusiveList *self, hgeIntrusiveListNode *node) {
+	if(self->head != NULL) {
+		hgeIntrusiveListNode_Link(node, self->head->prev, self->head);
 	} else {
-		hgeIntrusiveList_AddHead(this, node);
+		hgeIntrusiveList_AddHead(self, node);
 	}
-	this->tail = node;
+	self->tail = node;
 }
